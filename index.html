@@ -6,333 +6,211 @@
   <title>Noticias Banca & Retail Financiero — Chile</title>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
     :root {
-      --bg: #0f1117;
-      --surface: #1a1d27;
-      --surface2: #22263a;
-      --border: #2e3350;
-      --accent: #3b82f6;
-      --accent-glow: rgba(59,130,246,0.15);
-      --green: #22c55e;
-      --green-bg: rgba(34,197,94,0.1);
-      --muted: #4b5563;
-      --text: #e2e8f0;
-      --text-dim: #94a3b8;
-      --today-border: #f59e0b;
-      --today-bg: rgba(245,158,11,0.08);
-      --radius: 12px;
+      --bg: #0f1117; --surface: #1a1d27; --surface2: #22263a; --border: #2e3350;
+      --accent: #3b82f6; --accent-glow: rgba(59,130,246,0.15);
+      --green: #22c55e; --green-bg: rgba(34,197,94,0.08);
+      --muted: #4b5563; --text: #e2e8f0; --text-dim: #94a3b8;
+      --today-border: #f59e0b; --today-bg: rgba(245,158,11,0.08);
+      --radius: 8px;
     }
+    body { background: var(--bg); color: var(--text); font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; min-height: 100vh; padding-bottom: 48px; }
 
-    body {
-      background: var(--bg);
-      color: var(--text);
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-      min-height: 100vh;
-      padding: 0 0 60px;
-    }
+    /* Header */
+    header { background: linear-gradient(135deg, #0d1b3e 0%, #1a2744 60%, #0f1117 100%); border-bottom: 1px solid var(--border); padding: 22px 24px 18px; text-align: center; }
+    header h1 { font-size: 1.35rem; font-weight: 700; color: #fff; }
+    .tag { display: inline-block; background: var(--accent-glow); border: 1px solid rgba(59,130,246,0.3); color: #60a5fa; font-size: 0.68rem; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; padding: 2px 8px; border-radius: 99px; margin-left: 8px; vertical-align: middle; }
+    header p { color: var(--text-dim); font-size: 0.8rem; margin-top: 5px; }
 
-    /* ── Header ── */
-    header {
-      background: linear-gradient(135deg, #0d1b3e 0%, #1a2744 60%, #0f1117 100%);
-      border-bottom: 1px solid var(--border);
-      padding: 28px 24px 22px;
-      text-align: center;
-    }
-    .header-flag { font-size: 1.4rem; margin-right: 8px; }
-    header h1 {
-      font-size: 1.45rem;
-      font-weight: 700;
-      letter-spacing: -0.3px;
-      color: #fff;
-    }
-    header p {
-      color: var(--text-dim);
-      font-size: 0.82rem;
-      margin-top: 5px;
-    }
-    .tag {
-      display: inline-block;
-      background: var(--accent-glow);
-      border: 1px solid rgba(59,130,246,0.3);
-      color: #60a5fa;
-      font-size: 0.7rem;
-      font-weight: 600;
-      letter-spacing: 0.05em;
-      text-transform: uppercase;
-      padding: 2px 8px;
-      border-radius: 99px;
-      margin-left: 8px;
-      vertical-align: middle;
-    }
+    /* Month nav */
+    .month-nav { display: flex; align-items: center; justify-content: center; gap: 14px; padding: 18px 24px 8px; }
+    .month-nav button { background: var(--surface); border: 1px solid var(--border); color: var(--text-dim); padding: 6px 16px; border-radius: 8px; cursor: pointer; font-size: 0.83rem; transition: all 0.15s; }
+    .month-nav button:hover:not(:disabled) { border-color: var(--accent); color: var(--accent); }
+    .month-nav button:disabled { opacity: 0.25; cursor: default; }
+    #month-label { font-size: 1.05rem; font-weight: 700; color: var(--text); min-width: 160px; text-align: center; text-transform: capitalize; }
 
-    /* ── Week nav ── */
-    .week-nav {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 16px;
-      padding: 20px 24px 10px;
-    }
-    .week-nav button {
-      background: var(--surface);
-      border: 1px solid var(--border);
-      color: var(--text-dim);
-      padding: 7px 16px;
-      border-radius: 8px;
-      cursor: pointer;
-      font-size: 0.85rem;
-      transition: all 0.15s;
-    }
-    .week-nav button:hover {
-      border-color: var(--accent);
-      color: var(--accent);
-    }
-    .week-nav button:disabled {
-      opacity: 0.3;
-      cursor: default;
-    }
-    #week-label {
-      font-size: 1rem;
-      font-weight: 600;
-      color: var(--text);
-      min-width: 200px;
-      text-align: center;
-    }
+    /* Calendar */
+    .cal-wrap { max-width: 900px; margin: 10px auto 0; padding: 0 14px; }
 
-    /* ── Calendar grid ── */
-    .calendar {
-      display: grid;
-      grid-template-columns: repeat(7, 1fr);
-      gap: 10px;
-      max-width: 1100px;
-      margin: 16px auto 0;
-      padding: 0 16px;
-    }
-    @media (max-width: 800px) {
-      .calendar { grid-template-columns: repeat(2, 1fr); }
-    }
-    @media (max-width: 480px) {
-      .calendar { grid-template-columns: 1fr; }
-    }
+    /* Day-of-week header */
+    .dow-header { display: grid; grid-template-columns: repeat(7, 1fr); gap: 5px; margin-bottom: 5px; }
+    .dow-label { text-align: center; font-size: 0.68rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); padding: 4px 0; }
 
-    /* ── Day card ── */
-    .day-card {
+    /* Day grid */
+    .cal-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 5px; }
+
+    .day-cell {
       background: var(--surface);
       border: 1px solid var(--border);
       border-radius: var(--radius);
-      padding: 16px 14px;
-      min-height: 130px;
+      padding: 8px 7px 7px;
+      min-height: 72px;
       display: flex;
       flex-direction: column;
-      gap: 6px;
-      transition: border-color 0.2s, box-shadow 0.2s;
       position: relative;
-      overflow: hidden;
+      transition: border-color 0.15s;
     }
-    .day-card.is-today {
-      border-color: var(--today-border);
-      background: var(--today-bg);
-    }
-    .day-card.is-today::before {
-      content: 'HOY';
-      position: absolute;
-      top: 8px; right: 10px;
-      font-size: 0.6rem;
-      font-weight: 700;
-      letter-spacing: 0.08em;
-      color: var(--today-border);
-    }
-    .day-card.has-news {
-      border-color: rgba(34,197,94,0.4);
-      background: var(--green-bg);
-    }
-    .day-card.has-news:hover {
-      border-color: var(--green);
-      box-shadow: 0 0 20px rgba(34,197,94,0.12);
-    }
-    .day-card.is-future {
-      opacity: 0.4;
-    }
-    .day-card.is-weekend {
-      opacity: 0.55;
-    }
-    .day-name {
-      font-size: 0.7rem;
-      font-weight: 600;
-      letter-spacing: 0.06em;
-      text-transform: uppercase;
-      color: var(--text-dim);
-    }
-    .day-num {
-      font-size: 1.6rem;
-      font-weight: 700;
-      line-height: 1;
-      color: var(--text);
-    }
-    .day-month {
-      font-size: 0.72rem;
-      color: var(--text-dim);
-    }
+    .day-cell.empty { background: transparent; border-color: transparent; min-height: 72px; }
+    .day-cell.is-today { border-color: var(--today-border); background: var(--today-bg); }
+    .day-cell.has-news { border-color: rgba(34,197,94,0.45); background: var(--green-bg); }
+    .day-cell.has-news:hover { border-color: var(--green); box-shadow: 0 0 14px rgba(34,197,94,0.1); }
+    .day-cell.is-future { opacity: 0.3; pointer-events: none; }
+    .day-cell.is-weekend:not(.has-news):not(.is-today) { opacity: 0.55; }
 
-    /* status */
-    .day-status {
-      margin-top: auto;
-      font-size: 0.78rem;
-    }
-    .status-loading {
-      color: var(--muted);
-      display: flex;
-      align-items: center;
-      gap: 6px;
-    }
-    .spinner {
-      width: 12px; height: 12px;
-      border: 2px solid var(--border);
-      border-top-color: var(--accent);
-      border-radius: 50%;
-      animation: spin 0.7s linear infinite;
-    }
+    .day-top { display: flex; align-items: flex-start; justify-content: space-between; }
+    .day-num { font-size: 1.05rem; font-weight: 700; line-height: 1; color: var(--text); }
+    .today-tag { font-size: 0.55rem; font-weight: 800; letter-spacing: 0.08em; color: var(--today-border); background: rgba(245,158,11,0.15); padding: 1px 4px; border-radius: 4px; }
+
+    .day-status { margin-top: auto; padding-top: 6px; }
+    .spinner { display: inline-block; width: 10px; height: 10px; border: 2px solid var(--border); border-top-color: var(--accent); border-radius: 50%; animation: spin 0.7s linear infinite; }
     @keyframes spin { to { transform: rotate(360deg); } }
 
-    .status-news a {
-      display: inline-flex;
-      align-items: center;
-      gap: 5px;
-      color: var(--green);
-      text-decoration: none;
-      font-weight: 600;
-    }
-    .status-news a:hover { text-decoration: underline; }
-    .status-news a::after { content: '→'; }
-
-    .status-empty { color: var(--muted); }
-    .status-future { color: var(--muted); font-style: italic; }
-
-    /* ── Footer ── */
-    footer {
+    a.news-btn {
+      display: block;
       text-align: center;
-      color: var(--muted);
-      font-size: 0.72rem;
-      margin-top: 40px;
-      padding: 0 16px;
+      background: rgba(34,197,94,0.15);
+      border: 1px solid rgba(34,197,94,0.3);
+      color: var(--green);
+      font-size: 0.68rem;
+      font-weight: 700;
+      padding: 3px 5px;
+      border-radius: 5px;
+      text-decoration: none;
+      transition: all 0.15s;
     }
+    a.news-btn:hover { background: rgba(34,197,94,0.25); }
+    .no-news { font-size: 0.65rem; color: var(--muted); }
+
+    footer { text-align: center; color: var(--muted); font-size: 0.72rem; margin-top: 32px; }
     footer a { color: var(--accent); text-decoration: none; }
+
+    @media (max-width: 600px) {
+      .day-cell { min-height: 58px; padding: 6px 5px; }
+      .day-num { font-size: 0.9rem; }
+    }
   </style>
 </head>
 <body>
 
 <header>
-  <h1><span class="header-flag">🇨🇱</span> Noticias Banca &amp; Retail Financiero<span class="tag">Chile</span></h1>
-  <p>Resumen diario de las últimas 24 horas · actualizado cada mañana</p>
+  <h1>🇨🇱 Noticias Banca &amp; Retail Financiero<span class="tag">Chile</span></h1>
+  <p>Resumen diario · actualizado cada mañana a las 8:00 AM</p>
 </header>
 
-<div class="week-nav">
-  <button id="btn-prev" onclick="changeWeek(-1)">← Semana anterior</button>
-  <span id="week-label">—</span>
-  <button id="btn-next" onclick="changeWeek(1)">Semana siguiente →</button>
+<div class="month-nav">
+  <button id="btn-prev" onclick="changeMonth(-1)">← Mes anterior</button>
+  <span id="month-label">—</span>
+  <button id="btn-next" onclick="changeMonth(1)">Mes siguiente →</button>
 </div>
 
-<div class="calendar" id="calendar"></div>
+<div class="cal-wrap">
+  <div class="dow-header">
+    <div class="dow-label">Lun</div>
+    <div class="dow-label">Mar</div>
+    <div class="dow-label">Mié</div>
+    <div class="dow-label">Jue</div>
+    <div class="dow-label">Vie</div>
+    <div class="dow-label">Sáb</div>
+    <div class="dow-label">Dom</div>
+  </div>
+  <div class="cal-grid" id="cal-grid"></div>
+</div>
 
 <footer>
-  <p>Generado automáticamente · fuentes: medios digitales públicos · <a href="index.html">↩ volver al inicio</a></p>
+  <p>Generado automáticamente · fuentes: medios digitales públicos</p>
 </footer>
 
 <script>
-  const DAYS_ES = ['Domingo','Lunes','Martes','Miércoles','Jueves','Viernes','Sábado'];
   const MONTHS_ES = ['Enero','Febrero','Marzo','Abril','Mayo','Junio',
                      'Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'];
+  const MIN_YEAR = 2026, MIN_MONTH = 5; // Junio 2026
 
   function pad(n) { return String(n).padStart(2,'0'); }
   function toISO(d) { return `${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}`; }
 
-  // Monday of a given date's week
-  function weekStart(d) {
-    const day = d.getDay(); // 0=Sun
-    const diff = (day === 0) ? -6 : 1 - day;
-    const m = new Date(d);
-    m.setDate(m.getDate() + diff);
-    m.setHours(0,0,0,0);
-    return m;
-  }
-
-  let currentMonday = weekStart(new Date());
   const today = new Date(); today.setHours(0,0,0,0);
   const todayISO = toISO(today);
 
-  function changeWeek(delta) {
-    currentMonday = new Date(currentMonday);
-    currentMonday.setDate(currentMonday.getDate() + delta * 7);
-    renderWeek();
+  let currentYear = today.getFullYear();
+  let currentMonth = today.getMonth();
+
+  function changeMonth(delta) {
+    currentMonth += delta;
+    if (currentMonth < 0)  { currentMonth = 11; currentYear--; }
+    if (currentMonth > 11) { currentMonth = 0;  currentYear++; }
+    renderCalendar();
   }
 
   async function checkDay(iso) {
-    try {
-      const r = await fetch(`./${iso}.html`, { method: 'HEAD' });
-      return r.ok;
-    } catch { return false; }
+    try { const r = await fetch(`./${iso}.html`, { method: 'HEAD' }); return r.ok; }
+    catch { return false; }
   }
 
-  async function renderWeek() {
-    const cal = document.getElementById('calendar');
-    const label = document.getElementById('week-label');
+  async function renderCalendar() {
+    // Nav buttons
+    const atMin = currentYear === MIN_YEAR && currentMonth === MIN_MONTH;
+    const atMax = currentYear === today.getFullYear() && currentMonth === today.getMonth();
+    document.getElementById('btn-prev').disabled = atMin;
+    document.getElementById('btn-next').disabled = atMax;
+    document.getElementById('month-label').textContent =
+      `${MONTHS_ES[currentMonth]} ${currentYear}`;
 
-    // Week label
-    const wEnd = new Date(currentMonday);
-    wEnd.setDate(wEnd.getDate() + 6);
-    label.textContent = `${currentMonday.getDate()} – ${wEnd.getDate()} ${MONTHS_ES[wEnd.getMonth()]} ${wEnd.getFullYear()}`;
+    const firstDow = new Date(currentYear, currentMonth, 1).getDay();
+    const firstMon = (firstDow === 0) ? 6 : firstDow - 1; // Mon-first
+    const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
 
-    // Disable next-week button if current week contains today
-    const nextMonday = new Date(currentMonday); nextMonday.setDate(nextMonday.getDate()+7);
-    document.getElementById('btn-next').disabled = nextMonday > today;
+    const grid = document.getElementById('cal-grid');
+    grid.innerHTML = '';
 
-    // Build 7 card skeletons first (instant render)
-    cal.innerHTML = '';
-    const cards = [];
-    for (let i = 0; i < 7; i++) {
-      const d = new Date(currentMonday);
-      d.setDate(d.getDate() + i);
-      const iso = toISO(d);
-      const isFuture = d > today;
-      const isToday  = iso === todayISO;
-      const isWeekend = d.getDay() === 0 || d.getDay() === 6;
-
-      const card = document.createElement('div');
-      card.className = 'day-card'
-        + (isToday ? ' is-today' : '')
-        + (isFuture ? ' is-future' : '')
-        + (isWeekend && !isToday ? ' is-weekend' : '');
-      card.dataset.iso = iso;
-
-      card.innerHTML = `
-        <div class="day-name">${DAYS_ES[d.getDay()]}</div>
-        <div class="day-num">${pad(d.getDate())}</div>
-        <div class="day-month">${MONTHS_ES[d.getMonth()]} ${d.getFullYear()}</div>
-        <div class="day-status">
-          ${isFuture
-            ? `<span class="status-future">Próximamente</span>`
-            : `<span class="status-loading"><span class="spinner"></span>Verificando…</span>`}
-        </div>`;
-      cal.appendChild(card);
-      cards.push({ card, iso, isFuture });
+    // Empty cells before day 1
+    for (let i = 0; i < firstMon; i++) {
+      const e = document.createElement('div');
+      e.className = 'day-cell empty';
+      grid.appendChild(e);
     }
 
-    // Async check each past/today day
-    await Promise.all(cards.map(async ({ card, iso, isFuture }) => {
-      if (isFuture) return;
+    const checks = [];
+    for (let d = 1; d <= daysInMonth; d++) {
+      const date = new Date(currentYear, currentMonth, d);
+      const iso = toISO(date);
+      const dow = date.getDay();
+      const isFuture  = date > today;
+      const isToday   = iso === todayISO;
+      const isWeekend = dow === 0 || dow === 6;
+
+      const cell = document.createElement('div');
+      cell.className = 'day-cell'
+        + (isToday   ? ' is-today'   : '')
+        + (isFuture  ? ' is-future'  : '')
+        + (isWeekend && !isToday ? ' is-weekend' : '');
+
+      cell.innerHTML = `
+        <div class="day-top">
+          <span class="day-num">${d}</span>
+          ${isToday ? '<span class="today-tag">HOY</span>' : ''}
+        </div>
+        <div class="day-status">
+          ${isFuture ? '' : '<span class="spinner"></span>'}
+        </div>`;
+
+      grid.appendChild(cell);
+      if (!isFuture) checks.push({ iso, cell });
+    }
+
+    // Async news check
+    await Promise.all(checks.map(async ({ iso, cell }) => {
+      const statusEl = cell.querySelector('.day-status');
       const hasNews = await checkDay(iso);
-      const statusEl = card.querySelector('.day-status');
       if (hasNews) {
-        card.classList.add('has-news');
-        statusEl.innerHTML = `<span class="status-news"><a href="./${iso}.html">Ver noticias</a></span>`;
+        cell.classList.add('has-news');
+        statusEl.innerHTML = `<a class="news-btn" href="./${iso}.html">Ver →</a>`;
       } else {
-        statusEl.innerHTML = `<span class="status-empty">Sin publicación</span>`;
+        statusEl.innerHTML = `<span class="no-news">—</span>`;
       }
     }));
   }
 
-  renderWeek();
+  renderCalendar();
 </script>
 </body>
 </html>
