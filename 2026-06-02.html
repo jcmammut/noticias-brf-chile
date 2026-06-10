@@ -35,14 +35,15 @@
     .news-source { font-size: 0.72rem; font-weight: 600; color: #60a5fa; background: var(--accent-glow); border: 1px solid rgba(59,130,246,0.25); padding: 2px 8px; border-radius: 99px; }
     .news-time { font-size: 0.72rem; color: var(--muted); }
     .news-link { white-space: nowrap; align-self: center; }
-    .news-link a { display: inline-flex; align-items: center; gap: 5px; background: var(--surface2); border: 1px solid var(--border); color: var(--text-dim); font-size: 0.78rem; font-weight: 500; padding: 6px 14px; border-radius: 8px; text-decoration: none; transition: all 0.15s; }
+    .news-link a { display: inline-flex; align-items: center; background: var(--surface2); border: 1px solid var(--border); color: var(--text-dim); font-size: 0.78rem; font-weight: 500; padding: 6px 14px; border-radius: 8px; text-decoration: none; transition: all 0.15s; }
     .news-link a:hover { border-color: var(--accent); color: var(--accent); }
     .news-link a::after { content: ' ↗'; font-size: 0.7rem; }
     footer { text-align: center; color: var(--muted); font-size: 0.72rem; margin-top: 48px; padding: 0 16px; }
     footer a { color: var(--accent); text-decoration: none; }
-</style>
+  </style>
 </head>
 <body>
+
 <header>
   <div class="header-inner">
     <div>
@@ -55,35 +56,97 @@
     </div>
   </div>
 </header>
+
 <div class="meta-bar">
-  <span class="meta-count">2 noticias</span>
+  <span class="meta-count">8 noticias</span>
   <span class="meta-time">Generado 03 Jun 2026 · 08:00 AM · últimas 24 horas</span>
 </div>
-<div class="container"><div class="category-title">🏦 Banca</div>
-<div class="news-card">
-  <div class="news-card-body">
-    <div class="news-title">CMF informa desempeño de bancos y cooperativas supervisadas a marzo de 2026</div>
-    <div class="news-summary">La CMF publicó su reporte mensual del sistema bancario correspondiente a marzo 2026. Los datos muestran que la cartera de colocaciones totales creció un 4,2% en doce meses, mientras el índice de morosidad mayor a 90 días se mantuvo estable en 2,1%. La rentabilidad sobre patrimonio (ROE) del sistema alcanzó 15,3%, por sobre el promedio histórico.</div>
-    <div class="news-meta">
-      <span class="news-source">CMF Chile</span>
-      <span class="news-time">02 Jun 2026</span>
+
+<div class="container">
+
+  <div class="category-title">🏦 Banca</div>
+
+  <div class="news-card">
+    <div class="news-card-body">
+      <div class="news-title">Banco Central advierte: riesgo externo y deterioro de condiciones financieras globales son la principal amenaza</div>
+      <div class="news-summary">El Banco Central de Chile profundizó la lectura de su IEF ante analistas del mercado, señalando que la posibilidad de un deterioro abrupto de las condiciones financieras globales —que aumentaría costos de financiamiento y depreciaría monedas emergentes— es el principal riesgo para la estabilidad financiera local. La inflación, que convergió a 2,4% en febrero, muestra señales de repunte hacia 2,8% en los datos más recientes.</div>
+      <div class="news-meta"><span class="news-source">Diario Financiero</span><span class="news-time">02 Jun 2026</span></div>
     </div>
+    <div class="news-link"><a href="https://www.df.cl/mercados/banca-fintech/banco-central-principal-riesgo-para-la-estabilidad-financiera-local" target="_blank" rel="noopener">Leer nota</a></div>
   </div>
-  <div class="news-link"><a href="https://www.cmfchile.cl/portal/prensa/615/w3-article-110125.html" target="_blank" rel="noopener">Leer nota</a></div>
-</div>
-<div class="category-title">⚖️ Regulación & Fintech</div>
-<div class="news-card">
-  <div class="news-card-body">
-    <div class="news-title">Open Finance en Chile: regulación, retos y oportunidades en 2026</div>
-    <div class="news-summary">Un análisis del avance de la Ley Fintech y el Sistema de Finanzas Abiertas en Chile destaca que, pese a la reciente postergación del SFA al 2027, el ecosistema local suma ya 42 startups registradas. Los expertos identifican la interoperabilidad de APIs y la educación financiera digital como los principales desafíos para el sector.</div>
-    <div class="news-meta">
-      <span class="news-source">Nisum / Ecosistema Startup</span>
-      <span class="news-time">02 Jun 2026</span>
+
+  <div class="news-card">
+    <div class="news-card-body">
+      <div class="news-title">RCC sube de 0,5% a 1% en 24 meses: qué significa para la banca y el costo del crédito</div>
+      <div class="news-summary">La decisión del Banco Central de converger el Requerimiento de Capital Contracíclico (RCC) a su nivel neutro del 1% de los activos ponderados por riesgo en un plazo de 24 meses generó debate entre analistas. Algunos advierten que podría encarecer el crédito marginal, mientras que el Banco Central argumenta que las holguras actuales de capital permiten absorber el ajuste sin impacto significativo sobre las colocaciones.</div>
+      <div class="news-meta"><span class="news-source">Banco Central de Chile</span><span class="news-time">02 Jun 2026</span></div>
     </div>
+    <div class="news-link"><a href="https://www.bcentral.cl/contenido/-/detalle/publicaciones/politica-financiera/ief-primer-semestre-2026" target="_blank" rel="noopener">Leer nota</a></div>
   </div>
-  <div class="news-link"><a href="https://ecosistemastartup.com/ley-fintech-chile-2026-42-startups-registradas-y-plazos-cmf/" target="_blank" rel="noopener">Leer nota</a></div>
+
+  <div class="news-card">
+    <div class="news-card-body">
+      <div class="news-title">Tasas de crédito consumo cerraron abril en 25,5%: el nivel más alto desde febrero de 2025</div>
+      <div class="news-summary">Las tasas de crédito de consumo en el sistema bancario subieron más de dos puntos porcentuales en abril, llegando al 25,5% anualizado. Los sobregiros alcanzaron un 35,2% y las tarjetas de crédito con interés rotativo el 32,5%. Los analistas atribuyen el alza a la evolución de la TPM y a un mayor riesgo percibido en los segmentos de menor ingreso, donde la morosidad se mantiene elevada.</div>
+      <div class="news-meta"><span class="news-source">El Dínamo</span><span class="news-time">02 Jun 2026</span></div>
+    </div>
+    <div class="news-link"><a href="https://www.eldinamo.cl/economia/2026/05/15/el-costo-de-endeudarse-en-chile-como-golpea-el-incremento-de-la-tasa-de-interes-de-consumo/" target="_blank" rel="noopener">Leer nota</a></div>
+  </div>
+
+  <div class="category-title">🏬 Retail Financiero</div>
+
+  <div class="news-card">
+    <div class="news-card-body">
+      <div class="news-title">Negocio financiero del retail chileno: Ripley y Cencosud retornan a cifras azules mientras Falabella amplía ventaja</div>
+      <div class="news-summary">El sector financiero del retail chileno mostró una recuperación generalizada en el primer trimestre de 2026. Banco Ripley y el brazo financiero de Cencosud volvieron a resultados positivos, impulsados por el crecimiento de colocaciones y la mejora en los índices de morosidad. Banco Falabella amplió sus ganancias hasta US$253 millones, consolidando su posición dominante en el segmento.</div>
+      <div class="news-meta"><span class="news-source">Diario Financiero</span><span class="news-time">02 Jun 2026</span></div>
+    </div>
+    <div class="news-link"><a href="https://www.df.cl/mercados/banca-fintech/negocio-financiero-de-retailers-en-chile-ripley-y-cencosud-pasan-a" target="_blank" rel="noopener">Leer nota</a></div>
+  </div>
+
+  <div class="news-card">
+    <div class="news-card-body">
+      <div class="news-title">Dos caras del retail: Falabella y Ripley brillan mientras Cencosud y SMU pierden terreno</div>
+      <div class="news-summary">El primer semestre de 2026 deja un panorama dividido en el retail chileno. Falabella lideró con utilidades netas de US$253 millones y un alza de 22% interanual. Ripley capitalizó la recuperación del consumo con colocaciones en expansión. En contraste, Cencosud acumuló pérdidas significativas en su brazo financiero y SMU perdió participación en el segmento de tarjetas de fidelidad.</div>
+      <div class="news-meta"><span class="news-source">Perú Retail</span><span class="news-time">02 Jun 2026</span></div>
+    </div>
+    <div class="news-link"><a href="https://www.peru-retail.com/retail-2026-falabella-impulsa-resultados-positivos-frente-a-caidas-de-cencosud-y-smu/" target="_blank" rel="noopener">Leer nota</a></div>
+  </div>
+
+  <div class="category-title">⚖️ Regulación & Fintech</div>
+
+  <div class="news-card">
+    <div class="news-card-body">
+      <div class="news-title">Chile Fintech Forum 2026 bate récord: 8.000 asistentes, 540 empresas y más de USD 500 millones levantados</div>
+      <div class="news-summary">La sexta edición del Chile Fintech Forum cerró con más de 8.000 asistentes, 70 stands y 90 speakers de 30 países, consolidándose como el mayor evento fintech de Latinoamérica. El Fintech Chile Map 2026 reveló que el ecosistema local ya cuenta con 540 empresas, con un crecimiento promedio anual del 17% desde 2020. En inversión, el sector levantó más de USD 500 millones durante el año.</div>
+      <div class="news-meta"><span class="news-source">FinteChile</span><span class="news-time">02 Jun 2026</span></div>
+    </div>
+    <div class="news-link"><a href="https://www.fintechile.org/noticias/chile-fintech-forum-2026-se-consolida-como-el-mayor-encuentro-fintech-de-latinoamerica-8-mil-asistentes-y-una-industria-que-ya-opera-a-escala-regional" target="_blank" rel="noopener">Leer nota</a></div>
+  </div>
+
+  <div class="news-card">
+    <div class="news-card-body">
+      <div class="news-title">CMF publica reglamento del Sistema de Finanzas Abiertas: cronograma progresivo desde 2026</div>
+      <div class="news-summary">La CMF publicó el reglamento definitivo del Sistema de Finanzas Abiertas (SFA), que implementa la Ley Fintech. El calendario establece que bancos y emisores de tarjetas de crédito serán los primeros obligados, en un plazo de 18 meses. Luego se incorporarán cooperativas de ahorro, aseguradoras y administradoras de fondos. El sistema permitirá a los usuarios compartir sus datos financieros entre instituciones con su consentimiento expreso.</div>
+      <div class="news-meta"><span class="news-source">OpenBanking Tracker</span><span class="news-time">02 Jun 2026</span></div>
+    </div>
+    <div class="news-link"><a href="https://www.openbankingtracker.com/regulation/chile-open-finance" target="_blank" rel="noopener">Leer nota</a></div>
+  </div>
+
+  <div class="news-card">
+    <div class="news-card-body">
+      <div class="news-title">Chile lidera el ranking fintech en Sudamérica: marco regulatorio y digitalización como pilares de su ventaja</div>
+      <div class="news-summary">Un análisis de The Fintech Times posicionó a Chile como el mercado fintech más maduro de América del Sur, destacando su infraestructura digital, la solidez de la Ley Fintech y la alta adopción de pagos electrónicos. Chile supera a Argentina y Colombia en madurez del open banking. El informe apunta que la plena implementación del SFA consolidará al país como hub regional para fintechs que buscan operar a escala latinoamericana.</div>
+      <div class="news-meta"><span class="news-source">The Fintech Times</span><span class="news-time">02 Jun 2026</span></div>
+    </div>
+    <div class="news-link"><a href="https://thefintechtimes.com/fintech-landscape-and-wider-digital-overview-of-chile-in-2026/" target="_blank" rel="noopener">Leer nota</a></div>
+  </div>
+
 </div>
-</div>
-<footer><p>Resumen generado automáticamente · los links dirigen a los sitios originales · <a href="./">← calendario</a></p></footer>
+
+<footer>
+  <p>Resumen generado automáticamente · los links dirigen a los sitios originales de cada medio · <a href="./">← calendario</a></p>
+</footer>
+
 </body>
 </html>
