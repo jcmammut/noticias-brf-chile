@@ -12,81 +12,95 @@
       --green: #22c55e; --green-bg: rgba(34,197,94,0.08);
       --muted: #4b5563; --text: #e2e8f0; --text-dim: #94a3b8;
       --today-border: #f59e0b; --today-bg: rgba(245,158,11,0.08);
-      --radius: 8px;
+      --active-border: #3b82f6; --active-bg: rgba(59,130,246,0.08);
+      --radius: 10px;
     }
-    body { background: var(--bg); color: var(--text); font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; min-height: 100vh; padding-bottom: 48px; }
+    body { background: var(--bg); color: var(--text); font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; min-height: 100vh; padding-bottom: 60px; }
 
-    /* Header */
+    /* ── Header ── */
     header { background: linear-gradient(135deg, #0d1b3e 0%, #1a2744 60%, #0f1117 100%); border-bottom: 1px solid var(--border); padding: 22px 24px 18px; text-align: center; }
     header h1 { font-size: 1.35rem; font-weight: 700; color: #fff; }
     .tag { display: inline-block; background: var(--accent-glow); border: 1px solid rgba(59,130,246,0.3); color: #60a5fa; font-size: 0.68rem; font-weight: 600; letter-spacing: 0.05em; text-transform: uppercase; padding: 2px 8px; border-radius: 99px; margin-left: 8px; vertical-align: middle; }
     header p { color: var(--text-dim); font-size: 0.8rem; margin-top: 5px; }
 
-    /* Month nav */
-    .month-nav { display: flex; align-items: center; justify-content: center; gap: 14px; padding: 18px 24px 8px; }
-    .month-nav button { background: var(--surface); border: 1px solid var(--border); color: var(--text-dim); padding: 6px 16px; border-radius: 8px; cursor: pointer; font-size: 0.83rem; transition: all 0.15s; }
-    .month-nav button:hover:not(:disabled) { border-color: var(--accent); color: var(--accent); }
-    .month-nav button:disabled { opacity: 0.25; cursor: default; }
-    #month-label { font-size: 1.05rem; font-weight: 700; color: var(--text); min-width: 160px; text-align: center; text-transform: capitalize; }
+    /* ── Week nav ── */
+    .week-nav { display: flex; align-items: center; justify-content: center; gap: 14px; padding: 16px 24px 8px; }
+    .week-nav button { background: var(--surface); border: 1px solid var(--border); color: var(--text-dim); padding: 6px 16px; border-radius: 8px; cursor: pointer; font-size: 0.83rem; transition: all 0.15s; }
+    .week-nav button:hover:not(:disabled) { border-color: var(--accent); color: var(--accent); }
+    .week-nav button:disabled { opacity: 0.25; cursor: default; }
+    #week-label { font-size: 1rem; font-weight: 700; color: var(--text); min-width: 200px; text-align: center; }
 
-    /* Calendar */
-    .cal-wrap { max-width: 900px; margin: 10px auto 0; padding: 0 14px; }
+    /* ── 7-day calendar strip ── */
+    .calendar { display: grid; grid-template-columns: repeat(7, 1fr); gap: 8px; max-width: 900px; margin: 8px auto 0; padding: 0 16px; }
 
-    /* Day-of-week header */
-    .dow-header { display: grid; grid-template-columns: repeat(7, 1fr); gap: 5px; margin-bottom: 5px; }
-    .dow-label { text-align: center; font-size: 0.68rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--muted); padding: 4px 0; }
-
-    /* Day grid */
-    .cal-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 5px; }
-
-    .day-cell {
+    .day-card {
       background: var(--surface);
       border: 1px solid var(--border);
       border-radius: var(--radius);
-      padding: 8px 7px 7px;
-      min-height: 72px;
-      display: flex;
-      flex-direction: column;
+      padding: 10px 8px;
+      min-height: 88px;
+      display: flex; flex-direction: column; gap: 4px;
       position: relative;
-      transition: border-color 0.15s;
+      transition: border-color 0.15s, box-shadow 0.15s;
     }
-    .day-cell.empty { background: transparent; border-color: transparent; min-height: 72px; }
-    .day-cell.is-today { border-color: var(--today-border); background: var(--today-bg); }
-    .day-cell.has-news { border-color: rgba(34,197,94,0.45); background: var(--green-bg); }
-    .day-cell.has-news:hover { border-color: var(--green); box-shadow: 0 0 14px rgba(34,197,94,0.1); }
-    .day-cell.is-future { opacity: 0.3; pointer-events: none; }
-    .day-cell.is-weekend:not(.has-news):not(.is-today) { opacity: 0.55; }
+    .day-card.is-today  { border-color: var(--today-border); background: var(--today-bg); }
+    .day-card.has-news  { border-color: rgba(34,197,94,0.4); background: var(--green-bg); cursor: pointer; }
+    .day-card.has-news:hover { border-color: var(--green); box-shadow: 0 0 16px rgba(34,197,94,0.12); }
+    .day-card.is-active { border-color: var(--active-border) !important; background: var(--active-bg) !important; box-shadow: 0 0 20px var(--accent-glow); }
+    .day-card.is-future { opacity: 0.3; pointer-events: none; }
+    .day-card.is-weekend:not(.has-news):not(.is-today) { opacity: 0.5; }
 
-    .day-top { display: flex; align-items: flex-start; justify-content: space-between; }
-    .day-num { font-size: 1.05rem; font-weight: 700; line-height: 1; color: var(--text); }
-    .today-tag { font-size: 0.55rem; font-weight: 800; letter-spacing: 0.08em; color: var(--today-border); background: rgba(245,158,11,0.15); padding: 1px 4px; border-radius: 4px; }
+    .day-card.is-today::after { content: 'HOY'; position: absolute; top: 6px; right: 7px; font-size: 0.55rem; font-weight: 800; letter-spacing: 0.08em; color: var(--today-border); }
 
-    .day-status { margin-top: auto; padding-top: 6px; }
+    .day-name { font-size: 0.65rem; font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; color: var(--text-dim); }
+    .day-num  { font-size: 1.4rem; font-weight: 700; line-height: 1; color: var(--text); }
+    .day-month { font-size: 0.65rem; color: var(--text-dim); }
+    .day-status { margin-top: auto; font-size: 0.72rem; }
+
     .spinner { display: inline-block; width: 10px; height: 10px; border: 2px solid var(--border); border-top-color: var(--accent); border-radius: 50%; animation: spin 0.7s linear infinite; }
     @keyframes spin { to { transform: rotate(360deg); } }
 
-    a.news-btn {
-      display: block;
-      text-align: center;
-      background: rgba(34,197,94,0.15);
-      border: 1px solid rgba(34,197,94,0.3);
-      color: var(--green);
-      font-size: 0.68rem;
-      font-weight: 700;
-      padding: 3px 5px;
-      border-radius: 5px;
-      text-decoration: none;
-      transition: all 0.15s;
+    .status-news  { color: var(--green); font-weight: 600; }
+    .status-empty { color: var(--muted); }
+    .status-future { color: var(--muted); font-style: italic; font-size: 0.65rem; }
+
+    /* ── News section ── */
+    .news-section { max-width: 860px; margin: 24px auto 0; padding: 0 16px; }
+
+    .news-section-header {
+      display: flex; align-items: center; gap: 12px; flex-wrap: wrap;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 14px; margin-bottom: 20px;
     }
-    a.news-btn:hover { background: rgba(34,197,94,0.25); }
-    .no-news { font-size: 0.65rem; color: var(--muted); }
+    .news-section-header h2 { font-size: 1rem; font-weight: 700; color: var(--text); }
+    .meta-count { background: var(--accent-glow); border: 1px solid rgba(59,130,246,0.3); color: #60a5fa; font-size: 0.73rem; font-weight: 600; padding: 3px 10px; border-radius: 99px; }
+    .meta-time { font-size: 0.73rem; color: var(--muted); }
 
-    footer { text-align: center; color: var(--muted); font-size: 0.72rem; margin-top: 32px; }
-    footer a { color: var(--accent); text-decoration: none; }
+    /* ── News cards (same as daily pages) ── */
+    .category-title { font-size: 0.72rem; font-weight: 700; letter-spacing: 0.09em; text-transform: uppercase; color: var(--text-dim); border-bottom: 1px solid var(--border); padding-bottom: 8px; margin-bottom: 14px; margin-top: 28px; }
+    .category-title:first-child { margin-top: 0; }
+    .news-card { background: var(--surface); border: 1px solid var(--border); border-radius: var(--radius); padding: 18px 20px; margin-bottom: 10px; display: grid; grid-template-columns: 1fr auto; gap: 12px; align-items: start; transition: border-color 0.15s, box-shadow 0.15s; }
+    .news-card:hover { border-color: var(--accent); box-shadow: 0 0 20px var(--accent-glow); }
+    .news-title   { font-size: 0.95rem; font-weight: 600; color: var(--text); line-height: 1.4; margin-bottom: 6px; }
+    .news-summary { font-size: 0.82rem; color: var(--text-dim); line-height: 1.6; margin-bottom: 10px; }
+    .news-meta    { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+    .news-source  { font-size: 0.72rem; font-weight: 600; color: #60a5fa; background: var(--accent-glow); border: 1px solid rgba(59,130,246,0.25); padding: 2px 8px; border-radius: 99px; }
+    .news-time    { font-size: 0.72rem; color: var(--muted); }
+    .news-link    { white-space: nowrap; align-self: center; }
+    .news-link a  { display: inline-flex; align-items: center; background: var(--surface2); border: 1px solid var(--border); color: var(--text-dim); font-size: 0.78rem; font-weight: 500; padding: 6px 14px; border-radius: 8px; text-decoration: none; transition: all 0.15s; }
+    .news-link a:hover { border-color: var(--accent); color: var(--accent); }
+    .news-link a::after { content: ' ↗'; font-size: 0.7rem; }
 
-    @media (max-width: 600px) {
-      .day-cell { min-height: 58px; padding: 6px 5px; }
-      .day-num { font-size: 0.9rem; }
+    /* states */
+    .news-loading { display: flex; align-items: center; gap: 10px; color: var(--text-dim); font-size: 0.85rem; padding: 32px 0; }
+    .news-empty   { color: var(--muted); font-size: 0.85rem; padding: 32px 0; text-align: center; }
+
+    footer { text-align: center; color: var(--muted); font-size: 0.72rem; margin-top: 48px; }
+
+    @media (max-width: 640px) {
+      .calendar { gap: 5px; }
+      .day-card { min-height: 72px; padding: 8px 6px; }
+      .day-num { font-size: 1.1rem; }
     }
   </style>
 </head>
@@ -97,48 +111,50 @@
   <p>Resumen diario · actualizado cada mañana a las 8:00 AM</p>
 </header>
 
-<div class="month-nav">
-  <button id="btn-prev" onclick="changeMonth(-1)">← Mes anterior</button>
-  <span id="month-label">—</span>
-  <button id="btn-next" onclick="changeMonth(1)">Mes siguiente →</button>
+<div class="week-nav">
+  <button id="btn-prev" onclick="changeWeek(-1)">← Semana anterior</button>
+  <span id="week-label">—</span>
+  <button id="btn-next" onclick="changeWeek(1)">Semana siguiente →</button>
 </div>
 
-<div class="cal-wrap">
-  <div class="dow-header">
-    <div class="dow-label">Lun</div>
-    <div class="dow-label">Mar</div>
-    <div class="dow-label">Mié</div>
-    <div class="dow-label">Jue</div>
-    <div class="dow-label">Vie</div>
-    <div class="dow-label">Sáb</div>
-    <div class="dow-label">Dom</div>
-  </div>
-  <div class="cal-grid" id="cal-grid"></div>
+<div class="calendar" id="calendar"></div>
+
+<div class="news-section" id="news-section">
+  <div class="news-loading"><span class="spinner"></span> Cargando noticias…</div>
 </div>
 
-<footer>
-  <p>Generado automáticamente · fuentes: medios digitales públicos</p>
-</footer>
+<footer><p>Generado automáticamente · fuentes: medios digitales públicos</p></footer>
 
 <script>
-  const MONTHS_ES = ['Enero','Febrero','Marzo','Abril','Mayo','Junio',
-                     'Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'];
-  const MIN_YEAR = 2026, MIN_MONTH = 5; // Junio 2026
+  const DAYS_ES   = ['Domingo','Lunes','Martes','Miércoles','Jueves','Viernes','Sábado'];
+  const MONTHS_ES = ['Ene','Feb','Mar','Abr','May','Jun','Jul','Ago','Sep','Oct','Nov','Dic'];
+  const MONTHS_FULL = ['Enero','Febrero','Marzo','Abril','Mayo','Junio','Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'];
+
+  // ── Minimum week: week containing June 1, 2026 ──
+  const MIN_DATE = new Date(2026, 5, 1); // June 1 2026
+  MIN_DATE.setHours(0,0,0,0);
 
   function pad(n) { return String(n).padStart(2,'0'); }
   function toISO(d) { return `${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}`; }
+  function weekStart(d) {
+    const day = d.getDay();
+    const diff = (day === 0) ? -6 : 1 - day;
+    const m = new Date(d); m.setDate(m.getDate() + diff); m.setHours(0,0,0,0);
+    return m;
+  }
 
   const today = new Date(); today.setHours(0,0,0,0);
   const todayISO = toISO(today);
+  let currentMonday = weekStart(today);
+  let activeISO = null;
 
-  let currentYear = today.getFullYear();
-  let currentMonth = today.getMonth();
-
-  function changeMonth(delta) {
-    currentMonth += delta;
-    if (currentMonth < 0)  { currentMonth = 11; currentYear--; }
-    if (currentMonth > 11) { currentMonth = 0;  currentYear++; }
-    renderCalendar();
+  function changeWeek(delta) {
+    const next = new Date(currentMonday);
+    next.setDate(next.getDate() + delta * 7);
+    if (next < weekStart(MIN_DATE)) return;
+    currentMonday = next;
+    activeISO = null;
+    renderWeek();
   }
 
   async function checkDay(iso) {
@@ -146,71 +162,117 @@
     catch { return false; }
   }
 
-  async function renderCalendar() {
-    // Nav buttons
-    const atMin = currentYear === MIN_YEAR && currentMonth === MIN_MONTH;
-    const atMax = currentYear === today.getFullYear() && currentMonth === today.getMonth();
-    document.getElementById('btn-prev').disabled = atMin;
-    document.getElementById('btn-next').disabled = atMax;
-    document.getElementById('month-label').textContent =
-      `${MONTHS_ES[currentMonth]} ${currentYear}`;
+  async function loadNews(iso) {
+    const section = document.getElementById('news-section');
+    section.innerHTML = '<div class="news-loading"><span class="spinner"></span> Cargando noticias…</div>';
+    activeISO = iso;
 
-    const firstDow = new Date(currentYear, currentMonth, 1).getDay();
-    const firstMon = (firstDow === 0) ? 6 : firstDow - 1; // Mon-first
-    const daysInMonth = new Date(currentYear, currentMonth + 1, 0).getDate();
+    // Highlight active card
+    document.querySelectorAll('.day-card').forEach(c => c.classList.remove('is-active'));
+    const activeCard = document.querySelector(`[data-iso="${iso}"]`);
+    if (activeCard) activeCard.classList.add('is-active');
 
-    const grid = document.getElementById('cal-grid');
-    grid.innerHTML = '';
+    try {
+      const res  = await fetch(`./${iso}.html`);
+      const html = await res.text();
+      const doc  = new DOMParser().parseFromString(html, 'text/html');
 
-    // Empty cells before day 1
-    for (let i = 0; i < firstMon; i++) {
-      const e = document.createElement('div');
-      e.className = 'day-cell empty';
-      grid.appendChild(e);
+      const container = doc.querySelector('.container');
+      const metaCount = doc.querySelector('.meta-count');
+      const metaTime  = doc.querySelector('.meta-time');
+      const dateBadge = doc.querySelector('.date-badge');
+      const weekday   = dateBadge?.querySelector('.weekday')?.textContent || '';
+      const fulldate  = dateBadge?.querySelector('.fulldate')?.textContent || iso;
+
+      section.innerHTML = `
+        <div class="news-section-header">
+          <h2>📰 ${weekday} ${fulldate}</h2>
+          ${metaCount ? metaCount.outerHTML : ''}
+          ${metaTime  ? metaTime.outerHTML  : ''}
+        </div>
+        ${container ? container.innerHTML : '<p class="news-empty">Sin contenido disponible.</p>'}`;
+    } catch(e) {
+      section.innerHTML = '<p class="news-empty">No se pudo cargar el contenido.</p>';
     }
+  }
 
-    const checks = [];
-    for (let d = 1; d <= daysInMonth; d++) {
-      const date = new Date(currentYear, currentMonth, d);
-      const iso = toISO(date);
-      const dow = date.getDay();
-      const isFuture  = date > today;
+  async function renderWeek() {
+    const cal   = document.getElementById('calendar');
+    const label = document.getElementById('week-label');
+
+    const wEnd = new Date(currentMonday); wEnd.setDate(wEnd.getDate() + 6);
+    const sameMonth = currentMonday.getMonth() === wEnd.getMonth();
+    label.textContent = sameMonth
+      ? `${currentMonday.getDate()} – ${wEnd.getDate()} ${MONTHS_FULL[wEnd.getMonth()]} ${wEnd.getFullYear()}`
+      : `${currentMonday.getDate()} ${MONTHS_ES[currentMonday.getMonth()]} – ${wEnd.getDate()} ${MONTHS_ES[wEnd.getMonth()]} ${wEnd.getFullYear()}`;
+
+    // Disable prev at minimum week
+    const prevMonday = new Date(currentMonday); prevMonday.setDate(prevMonday.getDate() - 7);
+    document.getElementById('btn-prev').disabled = prevMonday < weekStart(MIN_DATE);
+    // Disable next if current week contains today
+    const nextMonday = new Date(currentMonday); nextMonday.setDate(nextMonday.getDate() + 7);
+    document.getElementById('btn-next').disabled = nextMonday > today;
+
+    // Build 7 skeleton cards
+    cal.innerHTML = '';
+    const cards = [];
+    for (let i = 0; i < 7; i++) {
+      const d = new Date(currentMonday); d.setDate(d.getDate() + i);
+      const iso       = toISO(d);
+      const isFuture  = d > today;
       const isToday   = iso === todayISO;
-      const isWeekend = dow === 0 || dow === 6;
+      const isWeekend = d.getDay() === 0 || d.getDay() === 6;
 
-      const cell = document.createElement('div');
-      cell.className = 'day-cell'
+      const card = document.createElement('div');
+      card.className = 'day-card'
         + (isToday   ? ' is-today'   : '')
         + (isFuture  ? ' is-future'  : '')
         + (isWeekend && !isToday ? ' is-weekend' : '');
+      card.dataset.iso = iso;
 
-      cell.innerHTML = `
-        <div class="day-top">
-          <span class="day-num">${d}</span>
-          ${isToday ? '<span class="today-tag">HOY</span>' : ''}
-        </div>
+      card.innerHTML = `
+        <div class="day-name">${DAYS_ES[d.getDay()]}</div>
+        <div class="day-num">${pad(d.getDate())}</div>
+        <div class="day-month">${MONTHS_ES[d.getMonth()]} ${d.getFullYear()}</div>
         <div class="day-status">
-          ${isFuture ? '' : '<span class="spinner"></span>'}
+          ${isFuture
+            ? '<span class="status-future">Próx.</span>'
+            : '<span class="spinner"></span>'}
         </div>`;
-
-      grid.appendChild(cell);
-      if (!isFuture) checks.push({ iso, cell });
+      cal.appendChild(card);
+      cards.push({ card, iso, isFuture, d });
     }
 
-    // Async news check
-    await Promise.all(checks.map(async ({ iso, cell }) => {
-      const statusEl = cell.querySelector('.day-status');
+    // Async check each past/today day
+    let mostRecentISO = null;
+    await Promise.all(cards.map(async ({ card, iso, isFuture }) => {
+      if (isFuture) return;
       const hasNews = await checkDay(iso);
+      const statusEl = card.querySelector('.day-status');
       if (hasNews) {
-        cell.classList.add('has-news');
-        statusEl.innerHTML = `<a class="news-btn" href="./${iso}.html">Ver →</a>`;
+        card.classList.add('has-news');
+        statusEl.innerHTML = '<span class="status-news">Ver →</span>';
+        card.onclick = () => loadNews(iso);
+        if (!mostRecentISO || iso > mostRecentISO) mostRecentISO = iso;
       } else {
-        statusEl.innerHTML = `<span class="no-news">—</span>`;
+        statusEl.innerHTML = '<span class="status-empty">—</span>';
       }
     }));
+
+    // Auto-load most recent day's news (or keep active if still visible)
+    if (activeISO && cards.some(c => c.iso === activeISO)) {
+      // re-highlight current active
+      const ac = document.querySelector(`[data-iso="${activeISO}"]`);
+      if (ac) ac.classList.add('is-active');
+    } else if (mostRecentISO) {
+      loadNews(mostRecentISO);
+    } else {
+      document.getElementById('news-section').innerHTML =
+        '<p class="news-empty">Sin noticias publicadas esta semana.</p>';
+    }
   }
 
-  renderCalendar();
+  renderWeek();
 </script>
 </body>
 </html>
