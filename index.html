@@ -1,0 +1,338 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Noticias Banca & Retail Financiero — Chile</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #0f1117;
+      --surface: #1a1d27;
+      --surface2: #22263a;
+      --border: #2e3350;
+      --accent: #3b82f6;
+      --accent-glow: rgba(59,130,246,0.15);
+      --green: #22c55e;
+      --green-bg: rgba(34,197,94,0.1);
+      --muted: #4b5563;
+      --text: #e2e8f0;
+      --text-dim: #94a3b8;
+      --today-border: #f59e0b;
+      --today-bg: rgba(245,158,11,0.08);
+      --radius: 12px;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      min-height: 100vh;
+      padding: 0 0 60px;
+    }
+
+    /* ── Header ── */
+    header {
+      background: linear-gradient(135deg, #0d1b3e 0%, #1a2744 60%, #0f1117 100%);
+      border-bottom: 1px solid var(--border);
+      padding: 28px 24px 22px;
+      text-align: center;
+    }
+    .header-flag { font-size: 1.4rem; margin-right: 8px; }
+    header h1 {
+      font-size: 1.45rem;
+      font-weight: 700;
+      letter-spacing: -0.3px;
+      color: #fff;
+    }
+    header p {
+      color: var(--text-dim);
+      font-size: 0.82rem;
+      margin-top: 5px;
+    }
+    .tag {
+      display: inline-block;
+      background: var(--accent-glow);
+      border: 1px solid rgba(59,130,246,0.3);
+      color: #60a5fa;
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      padding: 2px 8px;
+      border-radius: 99px;
+      margin-left: 8px;
+      vertical-align: middle;
+    }
+
+    /* ── Week nav ── */
+    .week-nav {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 16px;
+      padding: 20px 24px 10px;
+    }
+    .week-nav button {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      color: var(--text-dim);
+      padding: 7px 16px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 0.85rem;
+      transition: all 0.15s;
+    }
+    .week-nav button:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+    .week-nav button:disabled {
+      opacity: 0.3;
+      cursor: default;
+    }
+    #week-label {
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--text);
+      min-width: 200px;
+      text-align: center;
+    }
+
+    /* ── Calendar grid ── */
+    .calendar {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      gap: 10px;
+      max-width: 1100px;
+      margin: 16px auto 0;
+      padding: 0 16px;
+    }
+    @media (max-width: 800px) {
+      .calendar { grid-template-columns: repeat(2, 1fr); }
+    }
+    @media (max-width: 480px) {
+      .calendar { grid-template-columns: 1fr; }
+    }
+
+    /* ── Day card ── */
+    .day-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 16px 14px;
+      min-height: 130px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      transition: border-color 0.2s, box-shadow 0.2s;
+      position: relative;
+      overflow: hidden;
+    }
+    .day-card.is-today {
+      border-color: var(--today-border);
+      background: var(--today-bg);
+    }
+    .day-card.is-today::before {
+      content: 'HOY';
+      position: absolute;
+      top: 8px; right: 10px;
+      font-size: 0.6rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      color: var(--today-border);
+    }
+    .day-card.has-news {
+      border-color: rgba(34,197,94,0.4);
+      background: var(--green-bg);
+    }
+    .day-card.has-news:hover {
+      border-color: var(--green);
+      box-shadow: 0 0 20px rgba(34,197,94,0.12);
+    }
+    .day-card.is-future {
+      opacity: 0.4;
+    }
+    .day-card.is-weekend {
+      opacity: 0.55;
+    }
+    .day-name {
+      font-size: 0.7rem;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      color: var(--text-dim);
+    }
+    .day-num {
+      font-size: 1.6rem;
+      font-weight: 700;
+      line-height: 1;
+      color: var(--text);
+    }
+    .day-month {
+      font-size: 0.72rem;
+      color: var(--text-dim);
+    }
+
+    /* status */
+    .day-status {
+      margin-top: auto;
+      font-size: 0.78rem;
+    }
+    .status-loading {
+      color: var(--muted);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .spinner {
+      width: 12px; height: 12px;
+      border: 2px solid var(--border);
+      border-top-color: var(--accent);
+      border-radius: 50%;
+      animation: spin 0.7s linear infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    .status-news a {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      color: var(--green);
+      text-decoration: none;
+      font-weight: 600;
+    }
+    .status-news a:hover { text-decoration: underline; }
+    .status-news a::after { content: '→'; }
+
+    .status-empty { color: var(--muted); }
+    .status-future { color: var(--muted); font-style: italic; }
+
+    /* ── Footer ── */
+    footer {
+      text-align: center;
+      color: var(--muted);
+      font-size: 0.72rem;
+      margin-top: 40px;
+      padding: 0 16px;
+    }
+    footer a { color: var(--accent); text-decoration: none; }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1><span class="header-flag">🇨🇱</span> Noticias Banca &amp; Retail Financiero<span class="tag">Chile</span></h1>
+  <p>Resumen diario de las últimas 24 horas · actualizado cada mañana</p>
+</header>
+
+<div class="week-nav">
+  <button id="btn-prev" onclick="changeWeek(-1)">← Semana anterior</button>
+  <span id="week-label">—</span>
+  <button id="btn-next" onclick="changeWeek(1)">Semana siguiente →</button>
+</div>
+
+<div class="calendar" id="calendar"></div>
+
+<footer>
+  <p>Generado automáticamente · fuentes: medios digitales públicos · <a href="index.html">↩ volver al inicio</a></p>
+</footer>
+
+<script>
+  const DAYS_ES = ['Domingo','Lunes','Martes','Miércoles','Jueves','Viernes','Sábado'];
+  const MONTHS_ES = ['Enero','Febrero','Marzo','Abril','Mayo','Junio',
+                     'Julio','Agosto','Septiembre','Octubre','Noviembre','Diciembre'];
+
+  function pad(n) { return String(n).padStart(2,'0'); }
+  function toISO(d) { return `${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}`; }
+
+  // Monday of a given date's week
+  function weekStart(d) {
+    const day = d.getDay(); // 0=Sun
+    const diff = (day === 0) ? -6 : 1 - day;
+    const m = new Date(d);
+    m.setDate(m.getDate() + diff);
+    m.setHours(0,0,0,0);
+    return m;
+  }
+
+  let currentMonday = weekStart(new Date());
+  const today = new Date(); today.setHours(0,0,0,0);
+  const todayISO = toISO(today);
+
+  function changeWeek(delta) {
+    currentMonday = new Date(currentMonday);
+    currentMonday.setDate(currentMonday.getDate() + delta * 7);
+    renderWeek();
+  }
+
+  async function checkDay(iso) {
+    try {
+      const r = await fetch(`./${iso}.html`, { method: 'HEAD' });
+      return r.ok;
+    } catch { return false; }
+  }
+
+  async function renderWeek() {
+    const cal = document.getElementById('calendar');
+    const label = document.getElementById('week-label');
+
+    // Week label
+    const wEnd = new Date(currentMonday);
+    wEnd.setDate(wEnd.getDate() + 6);
+    label.textContent = `${currentMonday.getDate()} – ${wEnd.getDate()} ${MONTHS_ES[wEnd.getMonth()]} ${wEnd.getFullYear()}`;
+
+    // Disable next-week button if current week contains today
+    const nextMonday = new Date(currentMonday); nextMonday.setDate(nextMonday.getDate()+7);
+    document.getElementById('btn-next').disabled = nextMonday > today;
+
+    // Build 7 card skeletons first (instant render)
+    cal.innerHTML = '';
+    const cards = [];
+    for (let i = 0; i < 7; i++) {
+      const d = new Date(currentMonday);
+      d.setDate(d.getDate() + i);
+      const iso = toISO(d);
+      const isFuture = d > today;
+      const isToday  = iso === todayISO;
+      const isWeekend = d.getDay() === 0 || d.getDay() === 6;
+
+      const card = document.createElement('div');
+      card.className = 'day-card'
+        + (isToday ? ' is-today' : '')
+        + (isFuture ? ' is-future' : '')
+        + (isWeekend && !isToday ? ' is-weekend' : '');
+      card.dataset.iso = iso;
+
+      card.innerHTML = `
+        <div class="day-name">${DAYS_ES[d.getDay()]}</div>
+        <div class="day-num">${pad(d.getDate())}</div>
+        <div class="day-month">${MONTHS_ES[d.getMonth()]} ${d.getFullYear()}</div>
+        <div class="day-status">
+          ${isFuture
+            ? `<span class="status-future">Próximamente</span>`
+            : `<span class="status-loading"><span class="spinner"></span>Verificando…</span>`}
+        </div>`;
+      cal.appendChild(card);
+      cards.push({ card, iso, isFuture });
+    }
+
+    // Async check each past/today day
+    await Promise.all(cards.map(async ({ card, iso, isFuture }) => {
+      if (isFuture) return;
+      const hasNews = await checkDay(iso);
+      const statusEl = card.querySelector('.day-status');
+      if (hasNews) {
+        card.classList.add('has-news');
+        statusEl.innerHTML = `<span class="status-news"><a href="./${iso}.html">Ver noticias</a></span>`;
+      } else {
+        statusEl.innerHTML = `<span class="status-empty">Sin publicación</span>`;
+      }
+    }));
+  }
+
+  renderWeek();
+</script>
+</body>
+</html>
