@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BRF Chile — 13 Junio 2026</title>
+  <style>
+    :root {
+      --bg: #0f1117;
+      --surface: #1a1d27;
+      --surface2: #22263a;
+      --accent: #3b82f6;
+      --accent2: #60a5fa;
+      --text: #e2e8f0;
+      --text-muted: #8b9ab4;
+      --border: #2d3348;
+      --banca: #10b981;
+      --retail: #f59e0b;
+      --reg: #a78bfa;
+      --radius: 12px;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      min-height: 100vh;
+      padding: 0 0 60px;
+    }
+
+    /* ── HEADER ── */
+    header {
+      background: linear-gradient(135deg, #1a1d27 0%, #12151f 100%);
+      border-bottom: 1px solid var(--border);
+      padding: 36px 24px 28px;
+      text-align: center;
+    }
+
+    .header-eyebrow {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 10px;
+    }
+
+    .header-day {
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-bottom: 6px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+    }
+
+    header h1 {
+      font-size: clamp(24px, 5vw, 38px);
+      font-weight: 800;
+      letter-spacing: -0.5px;
+      background: linear-gradient(90deg, #e2e8f0, #94a3b8);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .header-subtitle {
+      font-size: 13px;
+      color: var(--text-muted);
+      margin-top: 10px;
+    }
+
+    /* ── MAIN ── */
+    main {
+      max-width: 860px;
+      margin: 0 auto;
+      padding: 40px 20px 0;
+    }
+
+    /* ── CATEGORY SECTION ── */
+    .category-section {
+      margin-bottom: 48px;
+    }
+
+    .category-title {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      margin-bottom: 20px;
+      padding-bottom: 12px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .category-title.banca { color: var(--banca); }
+    .category-title.retail { color: var(--retail); }
+    .category-title.reg { color: var(--reg); }
+
+    .category-count {
+      font-size: 11px;
+      background: var(--surface2);
+      padding: 2px 8px;
+      border-radius: 20px;
+      color: var(--text-muted);
+      font-weight: 600;
+      letter-spacing: 0;
+    }
+
+    /* ── NEWS CARD ── */
+    .news-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 22px 24px;
+      margin-bottom: 16px;
+      transition: border-color 0.2s, transform 0.15s;
+    }
+
+    .news-card:hover {
+      border-color: var(--accent);
+      transform: translateY(-1px);
+    }
+
+    .news-card:last-child { margin-bottom: 0; }
+
+    .card-meta {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 12px;
+      flex-wrap: wrap;
+    }
+
+    .source-badge {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      padding: 3px 10px;
+      border-radius: 20px;
+      color: #fff;
+    }
+
+    .source-badge.df { background: #1d4ed8; }
+    .source-badge.lt { background: #b45309; }
+
+    .card-date {
+      font-size: 12px;
+      color: var(--text-muted);
+    }
+
+    .card-date .dot {
+      width: 4px;
+      height: 4px;
+      background: var(--border);
+      border-radius: 50%;
+      display: inline-block;
+      vertical-align: middle;
+      margin-right: 6px;
+    }
+
+    .card-title {
+      font-size: 17px;
+      font-weight: 700;
+      line-height: 1.45;
+      margin-bottom: 10px;
+      color: var(--text);
+    }
+
+    .card-title a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .card-title a:hover { color: var(--accent2); }
+
+    .card-summary {
+      font-size: 14px;
+      color: var(--text-muted);
+      line-height: 1.7;
+      margin-bottom: 16px;
+    }
+
+    .card-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--accent);
+      text-decoration: none;
+      letter-spacing: 0.3px;
+    }
+
+    .card-link:hover { color: var(--accent2); }
+    .card-link svg { flex-shrink: 0; }
+
+    /* ── FOOTER ── */
+    footer {
+      text-align: center;
+      padding: 50px 20px 20px;
+      color: var(--text-muted);
+      font-size: 13px;
+    }
+
+    .footer-nav {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 50px;
+      padding: 8px 20px;
+      text-decoration: none;
+      color: var(--text-muted);
+      font-size: 13px;
+      font-weight: 500;
+      transition: border-color 0.2s, color 0.2s;
+    }
+
+    .footer-nav:hover {
+      border-color: var(--accent);
+      color: var(--accent2);
+    }
+
+    .footer-divider {
+      width: 40px;
+      height: 1px;
+      background: var(--border);
+      margin: 30px auto 20px;
+    }
+
+    .footer-brand {
+      font-size: 11px;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      color: var(--border);
+    }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 600px) {
+      header { padding: 28px 16px 22px; }
+      main { padding: 28px 14px 0; }
+      .news-card { padding: 18px 16px; }
+      .card-title { font-size: 15px; }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <p class="header-eyebrow">Banca · Retail Financiero · Chile</p>
+    <p class="header-day">Sábado</p>
+    <h1>13 Junio 2026</h1>
+    <p class="header-subtitle">4 noticias verificadas del 12–13 de junio</p>
+  </header>
+
+  <main>
+
+    <!-- ══════════════════════════════════ -->
+    <!--  🏦 BANCA                          -->
+    <!-- ══════════════════════════════════ -->
+    <section class="category-section">
+      <h2 class="category-title banca">
+        🏦 Banca &amp; Economía
+        <span class="category-count">1 nota</span>
+      </h2>
+
+      <!-- Card 1 -->
+      <article class="news-card">
+        <div class="card-meta">
+          <span class="source-badge df">Diario Financiero</span>
+          <span class="card-date"><span class="dot"></span>Viernes 12 de junio, 12:30 hrs</span>
+        </div>
+        <h3 class="card-title">
+          <a href="https://www.df.cl/economia-y-politica/comercio-exterior/exportaciones-de-chile-alcanzan-record-historico-a-mayo-impulsadas-por-el" target="_blank" rel="noopener">
+            Exportaciones de Chile alcanzan récord histórico a mayo impulsadas por el cobre y el litio
+          </a>
+        </h3>
+        <p class="card-summary">
+          Las exportaciones chilenas de enero a mayo de 2026 sumaron US$49.565 millones, un alza de 12,1% anual que constituye un máximo histórico para el período. El cobre aportó US$24.370 millones (+10,2%), con un precio promedio de US$589/lb y un récord mensual en mayo de US$612,67/lb, mientras el litio casi triplicó su valor al totalizar US$2.639 millones. El intercambio comercial global subió 8,4% a US$87.692 millones, con China absorbiendo el 34% de los envíos.
+        </p>
+        <a class="card-link" href="https://www.df.cl/economia-y-politica/comercio-exterior/exportaciones-de-chile-alcanzan-record-historico-a-mayo-impulsadas-por-el" target="_blank" rel="noopener">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          Leer nota completa
+        </a>
+      </article>
+    </section>
+
+    <!-- ══════════════════════════════════ -->
+    <!--  🏬 RETAIL FINANCIERO              -->
+    <!-- ══════════════════════════════════ -->
+    <section class="category-section">
+      <h2 class="category-title retail">
+        🏬 Retail Financiero
+        <span class="category-count">1 nota</span>
+      </h2>
+
+      <!-- Card 2 -->
+      <article class="news-card">
+        <div class="card-meta">
+          <span class="source-badge lt">La Tercera / Pulso</span>
+          <span class="card-date"><span class="dot"></span>Viernes 12 de junio, 18:32 hrs</span>
+        </div>
+        <h3 class="card-title">
+          <a href="https://www.latercera.com/pulso/noticia/walmart-nombra-a-una-estadounidense-de-larga-trayectoria-dentro-de-la-firma-como-la-nueva-ceo-para-su-filial-en-chile/" target="_blank" rel="noopener">
+            Walmart nombra a una estadounidense de larga trayectoria dentro de la firma como la nueva CEO para su filial en Chile
+          </a>
+        </h3>
+        <p class="card-summary">
+          Walmart Internacional designó a Annie Walker como nueva CEO de Walmart Chile —operadora de Lider, Superbodega aCuenta y Central Mayorista—, convirtiéndose en la primera estadounidense y primera mujer en ocupar el cargo. Walker fue vicepresidenta senior de operaciones de Walmart U.S. East, donde supervisó más de 800 tiendas durante más de 20 años en la compañía. La subsidiaria chilena cuenta con más de 400 locales, 41.000 colaboradores y un plan de inversión de US$1.700 millones, y reemplaza a Cristian Barrientos, quien asume responsabilidades en México y Centroamérica.
+        </p>
+        <a class="card-link" href="https://www.latercera.com/pulso/noticia/walmart-nombra-a-una-estadounidense-de-larga-trayectoria-dentro-de-la-firma-como-la-nueva-ceo-para-su-filial-en-chile/" target="_blank" rel="noopener">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          Leer nota completa
+        </a>
+      </article>
+    </section>
+
+    <!-- ══════════════════════════════════ -->
+    <!--  ⚖️ REGULACIÓN & FINTECH           -->
+    <!-- ══════════════════════════════════ -->
+    <section class="category-section">
+      <h2 class="category-title reg">
+        ⚖️ Regulación &amp; Política Económica
+        <span class="category-count">2 notas</span>
+      </h2>
+
+      <!-- Card 3 -->
+      <article class="news-card">
+        <div class="card-meta">
+          <span class="source-badge df">Diario Financiero</span>
+          <span class="card-date"><span class="dot"></span>Viernes 12 de junio, 16:20 hrs</span>
+        </div>
+        <h3 class="card-title">
+          <a href="https://www.df.cl/regiones/biobio/mercados/cchc-concepcion-pide-al-ejecutivo-extension-de-subsidio-a-la-tasa" target="_blank" rel="noopener">
+            CChC Concepción pide al Ejecutivo extensión del subsidio a la tasa hipotecaria y del DS1
+          </a>
+        </h3>
+        <p class="card-summary">
+          La Cámara Chilena de la Construcción de Concepción solicitó formalmente al gobierno extender el subsidio a la tasa hipotecaria y ampliar el DS1 para cubrir viviendas de hasta UF 4.000. El pedido se enmarca en la Feria Finco —programada para el 19 al 21 de junio— que exhibirá 7.000 unidades habitacionales, dos tercios orientados al segmento de clase media. Las postulaciones al DS1 abren el 16 de junio.
+        </p>
+        <a class="card-link" href="https://www.df.cl/regiones/biobio/mercados/cchc-concepcion-pide-al-ejecutivo-extension-de-subsidio-a-la-tasa" target="_blank" rel="noopener">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          Leer nota completa
+        </a>
+      </article>
+
+      <!-- Card 4 -->
+      <article class="news-card">
+        <div class="card-meta">
+          <span class="source-badge lt">La Tercera / Pulso</span>
+          <span class="card-date"><span class="dot"></span>Sábado 13 de junio, 00:03 hrs</span>
+        </div>
+        <h3 class="card-title">
+          <a href="https://www.latercera.com/pulso/noticia/quiroz-adelanta-que-el-gobierno-impulsara-una-reforma-al-mercado-de-capitales-y-medidas-de-adaptabilidad-laboral/" target="_blank" rel="noopener">
+            Quiroz adelanta que el gobierno impulsará una reforma al mercado de capitales y medidas de adaptabilidad laboral
+          </a>
+        </h3>
+        <p class="card-summary">
+          El ministro de Hacienda Jorge Quiroz anunció que el Ejecutivo avanzará en una reforma al mercado de capitales y en medidas de adaptabilidad laboral que contemplarían medir las 40 horas semanales en un promedio anual. Quiroz estimó que el crecimiento económico de Chile en 2026 se ubicará cerca del 1,8%, por debajo del 2%, y destacó la oportunidad de potenciar las exportaciones de servicios basados en conocimiento —actualmente en US$3.000 millones— como palanca de desarrollo.
+        </p>
+        <a class="card-link" href="https://www.latercera.com/pulso/noticia/quiroz-adelanta-que-el-gobierno-impulsara-una-reforma-al-mercado-de-capitales-y-medidas-de-adaptabilidad-laboral/" target="_blank" rel="noopener">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          Leer nota completa
+        </a>
+      </article>
+    </section>
+
+  </main>
+
+  <footer>
+    <a class="footer-nav" href="https://jcmammut.github.io/noticias-brf-chile/" target="_blank" rel="noopener">
+      <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>
+      Ver archivo completo
+    </a>
+    <div class="footer-divider"></div>
+    <p class="footer-brand">BRF Chile · Noticias financieras · Generado automáticamente</p>
+  </footer>
+
+</body>
+</html>
